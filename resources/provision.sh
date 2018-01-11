@@ -10,7 +10,7 @@ set -u
 
 username=admin
 password=admin123
-nexus_host=http://localhost:8081/${NEXUS_CONTEXT}
+nexus_host=http://localhost:8081
 pretty_sleep() {
     secs=${1:-60}
     tool=${2:-service}
