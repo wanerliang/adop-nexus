@@ -10,7 +10,7 @@ set -u
 
 username=admin
 password=admin123
-nexus_host=http://localhost:8081
+nexus_host=http://localhost:8081/$NEXUS_CONTEXT
 pretty_sleep() {
     secs=${1:-60}
     tool=${2:-service}
@@ -30,7 +30,6 @@ function addAndRunScript {
   name=$1
   file=$2
   args=${3:-false}
-  echo $args
   groovy -Dgroovy.grape.report.downloads=true resources/conf/addUpdatescript.groovy -u "$username" -p "$password" -n "$name" -f "$file" -h "$nexus_host"
   printf "\nPublished $file as $name\n\n"
   curl -v -X POST -u $username:$password --header "Content-Type: text/plain" "$nexus_host/service/siesta/rest/v1/script/$name/run" -d $args
